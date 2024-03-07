@@ -18,7 +18,7 @@ struct StoryPickerView: View {
             List {
                 ForEach(stories) { story in
                     NavigationLink(value: story) {
-                        StoryPickerCell(title: story.title, description: story.description)
+                        StoryPickerCell(story: story)
                     }
                 }
             }
@@ -26,9 +26,7 @@ struct StoryPickerView: View {
             .navigationDestination(for: Story.self) { story in
                 WordEntryView(story: story)
             }
-            .background(.blue)
         }
-       
     }
 }
 
@@ -36,26 +34,3 @@ struct StoryPickerView: View {
     StoryPickerView()
 }
 
-struct StoryPickerCell: View {
-    
-    let title: String
-    let description: String
-    
-    var body: some View {
-        VStack {
-            Text(title)
-                .multilineTextAlignment(.leading)
-                .foregroundStyle(.primary)
-                .font(.title2)
-                .padding([.leading, .trailing, .bottom])
-            Text(description)
-                .font(.caption)
-                .foregroundStyle(.secondary)
-                .multilineTextAlignment(.leading)
-                
-            Spacer()
-        }
-        
-    }
-        
-}
