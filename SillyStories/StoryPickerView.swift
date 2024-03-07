@@ -8,17 +8,54 @@
 import SwiftUI
 
 struct StoryPickerView: View {
+    
+    @State var stories: [Story] = MockData.stories
+    @State var selectedStory: Story?
+    @State var isShowingWordEntry = false
+    
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+        NavigationStack {
+            List {
+                ForEach(stories) { story in
+                    NavigationLink(value: story) {
+                        StoryPickerCell(title: story.title, description: story.description)
+                    }
+                }
+            }
+            .navigationTitle("Available Stories")
+            .navigationDestination(for: Story.self) { story in
+                WordEntryView(story: story)
+            }
+            .background(.blue)
         }
-        .padding()
+       
     }
 }
 
 #Preview {
     StoryPickerView()
+}
+
+struct StoryPickerCell: View {
+    
+    let title: String
+    let description: String
+    
+    var body: some View {
+        VStack {
+            Text(title)
+                .multilineTextAlignment(.leading)
+                .foregroundStyle(.primary)
+                .font(.title2)
+                .padding([.leading, .trailing, .bottom])
+            Text(description)
+                .font(.caption)
+                .foregroundStyle(.secondary)
+                .multilineTextAlignment(.leading)
+                
+            Spacer()
+        }
+        
+    }
+        
 }

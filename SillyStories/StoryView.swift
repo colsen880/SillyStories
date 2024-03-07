@@ -8,11 +8,21 @@
 import SwiftUI
 
 struct StoryView: View {
+    
+    @State var storyText: String
+    @State var title: String
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        VStack {
+            Text(storyText)
+                .font(.title3)
+                .padding([.leading, .trailing, .bottom])
+            Spacer()
+        }
+        .navigationTitle(title)
     }
 }
 
 #Preview {
-    StoryView()
+    StoryView(storyText: MockData.stories[0].text, title: MockData.stories[0].title)
 }
